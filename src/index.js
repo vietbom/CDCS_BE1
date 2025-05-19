@@ -14,7 +14,9 @@ const app = express()
 dotenv.config()
 
 app.use(cors({
-    origin: 'https://cdcs-fe-rkal.vercel.app',
+    origin: process.env.NODE_ENV === 'production' 
+        ? 'https://cdcs-fe-rkal.vercel.app'
+        : 'http://localhost:5173',
     credentials: true
 }))
 
