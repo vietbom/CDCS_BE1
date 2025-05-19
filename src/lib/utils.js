@@ -29,11 +29,9 @@ export const generateToken = (userId, res) => {
 
     res.cookie('jwt', token, {
         httpOnly: true,
-        secure: true,  // Always use secure in production
-        sameSite: 'none',  // Required for cross-origin requests
-        maxAge: 2 * 24 * 60 * 60 * 1000, // 2 days
-        domain: isProduction ? '.onrender.com' : undefined, // Set domain in production
-        path: '/'
+        secure: isProduction,             
+        sameSite: isProduction ? 'None' : 'Lax',
+        maxAge: 2 * 24 * 60 * 60 * 1000
     });
 
     return token;

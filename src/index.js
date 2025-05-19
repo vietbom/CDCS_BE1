@@ -14,18 +14,12 @@ const app = express()
 dotenv.config()
 
 app.use(cors({
-    origin: process.env.NODE_ENV === 'production' 
-        ? 'https://cdcs-fe-rkal.vercel.app'
-        : 'http://localhost:5173',
+    origin: true, // Allow all origins temporarily for testing
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin', 'Cookie'],
-    exposedHeaders: ['Set-Cookie'],
-    preflightContinue: false,
-    optionsSuccessStatus: 204
+    exposedHeaders: ['Set-Cookie']
 }))
-
-app.options('*', cors())
 
 app.use(express.json())
 app.use(cookieParser())
