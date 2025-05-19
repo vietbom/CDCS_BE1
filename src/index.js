@@ -35,8 +35,14 @@ const port = process.env.PORT || 8017
 const host = process.env.HOST || 'localhost'
 
 
-app.listen(port, '0.0.0.0', host, () => {
-  console.log(`Server is running on http://${host}:${port}`)
-  connectDB()
-})
-
+if (process.env.NODE_ENV === 'production') {
+  app.listen(process.env.PORT, '0.0.0.0', host, () => {
+    console.log(`Server is running in PRODUCTION on http://${host}:${port}`);
+    connectDB();
+  });
+} else {
+  app.listen(port, '0.0.0.0', host, () => {
+    console.log(`Server is running in DEVELOPMENT on http://${host}:${port}`);
+    connectDB();
+  });
+}
