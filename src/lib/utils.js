@@ -15,6 +15,9 @@
 //     return token
 // }
 
+
+import jwt from "jsonwebtoken";
+
 export const generateToken = (userId, res) => {
     const token = jwt.sign(
         { _id: userId },
@@ -22,10 +25,12 @@ export const generateToken = (userId, res) => {
         { expiresIn: '2d' }
     );
 
+    const isProduction = process.env.NODE_ENV === 'production';
+
     res.cookie('jwt', token, {
         httpOnly: true,
-        secure: true,           
-        sameSite: 'None',       
+        secure: isProduction,             
+        sameSite: isProduction ? 'None' : 'Lax',
         maxAge: 2 * 24 * 60 * 60 * 1000
     });
 
