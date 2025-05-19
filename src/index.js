@@ -14,12 +14,11 @@ const app = express()
 dotenv.config()
 
 app.use(cors({
-    origin: process.env.NODE_ENV === 'production' 
-        ? 'https://cdcs-fe-rkal.vercel.app'
-        : 'http://localhost:5173',
+    origin: true, // Allow all origins temporarily for testing
     credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin']
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin', 'Cookie'],
+    exposedHeaders: ['Set-Cookie']
 }))
 
 app.use(express.json())
@@ -34,6 +33,10 @@ app.use('/api/docket', docketRouter)
 
 const __dirname = path.resolve()
 app.use(express.static(path.join(__dirname, 'public')))
+
+app.get('/api/test', (req, res) => {
+    res.json({ message: 'Backend is working!' });
+});
 
 const port = process.env.PORT || 8017
 const host = process.env.HOST || 'localhost'
