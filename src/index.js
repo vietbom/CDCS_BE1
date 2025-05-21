@@ -22,9 +22,12 @@ dotenv.config()
 // }))
 
 app.use(cors({
-    origin: 'https://illustrious-peony-0b9ab4.netlify.app',
-    credentials: true
- }))
+  origin: 'https://illustrious-peony-0b9ab4.netlify.app',
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}))
+
 
 app.use(express.json())
 app.use(cookieParser())
