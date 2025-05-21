@@ -40,11 +40,18 @@ const __dirname = path.resolve()
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.get('/api/test', (req, res) => {
-    res.json({ message: 'Backend is working!' });
+  console.log('/api/test được gọi từ FE');
+  res.json({ message: 'OK!' });
 });
+
 
 const port = process.env.PORT || 8017
 const host = process.env.HOST || 'localhost'
+
+app.use((req, res, next) => {
+  console.log(`Request from origin: ${req.headers.origin}`);
+  next();
+});
 
 
 if (process.env.NODE_ENV === 'production') {
