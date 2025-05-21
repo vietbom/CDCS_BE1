@@ -13,13 +13,18 @@ import path from 'path'
 const app = express()
 dotenv.config()
 
+// app.use(cors({
+//     origin: true, 
+//     credentials: true,
+//     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+//     allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin', 'Cookie'],
+//     exposedHeaders: ['Set-Cookie']
+// }))
+
 app.use(cors({
-    origin: true, 
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin', 'Cookie'],
-    exposedHeaders: ['Set-Cookie']
-}))
+    origin: 'https://illustrious-peony-0b9ab4.netlify.app',
+    credentials: true
+ }))
 
 app.use(express.json())
 app.use(cookieParser())
