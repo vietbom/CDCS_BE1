@@ -12,7 +12,7 @@ import path from 'path';
 const app = express();
 dotenv.config();
 
-const FRONTEND_ORIGIN = 'https://cdcs.netlify.app';
+const FRONTEND_ORIGIN = 'https://cdcs-fe.vercel.app';
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', FRONTEND_ORIGIN);
