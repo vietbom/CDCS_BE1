@@ -14,7 +14,7 @@ const app = express()
 dotenv.config()
 
 app.use(cors({
-    origin: true, // Allow all origins temporarily for testing
+    origin: true, 
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin', 'Cookie'],
