@@ -10,15 +10,15 @@ import cardRouter from "./routes/card.route.js"
 import docketRouter from "./routes/docket.route.js"
 import path from 'path'
 
+
+const ENV = process.env.NODE_ENV || 'development'
+dotenv.config({ path: `.env.${ENV}` })
+
 const app = express()
-dotenv.config()
 
 app.use(cors({
-    origin: true, 
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin', 'Cookie'],
-    exposedHeaders: ['Set-Cookie']
+    origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+    credentials: true
 }))
 
 app.use(express.json())
@@ -34,22 +34,13 @@ app.use('/api/docket', docketRouter)
 const __dirname = path.resolve()
 app.use(express.static(path.join(__dirname, 'public')))
 
-app.get('/api/test', (req, res) => {
-    res.json({ message: 'Backend is working!' });
-});
 
 const port = process.env.PORT || 8017
 const host = process.env.HOST || 'localhost'
 
+console.log("ENV:", process.env.NODE_ENV)
 
-if (process.env.NODE_ENV === 'production') {
-  app.listen(process.env.PORT, '0.0.0.0', host, () => {
-    console.log(`Server is running in PRODUCTION on http://${host}:${port}`);
-    connectDB();
-  });
-} else {
-  app.listen(port, '0.0.0.0', host, () => {
-    console.log(`Server is running in DEVELOPMENT on http://${host}:${port}`);
-    connectDB();
-  });
-}
+app.listen(port, host, () => {
+  console.log(`Server running at http://${host}:${port}`)
+  connectDB()
+})
