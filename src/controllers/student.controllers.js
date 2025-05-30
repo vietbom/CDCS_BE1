@@ -104,7 +104,8 @@ export const logout = async(req, res ) => {
         res.cookie('jwt','', {
             maxAge: 0,
             httpOnly: true,
-            sameSite: 'Lax',
+            // sameSite: 'Lax',
+            sameSite: 'None',
             secure: !isDevelopment,
             path: '/'
         })
